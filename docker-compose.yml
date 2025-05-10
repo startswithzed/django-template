@@ -1,0 +1,15 @@
+services:
+  server:
+    build:
+      context: .
+      target: final
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+    env_file:
+      - .env
+
+volumes:
+  static_volume: 

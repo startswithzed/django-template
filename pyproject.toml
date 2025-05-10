@@ -1,0 +1,10 @@
+[project]
+name = "django-template"
+version = "0.1.0"
+description = "Starter template for Django projects"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django-ninja>=1.4.1",
+    "gunicorn>=23.0.0",
+]
