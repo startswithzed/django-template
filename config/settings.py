@@ -117,11 +117,24 @@ LOGGING = {
             "datefmt": "%Y-%m-%d %H:%M:%S %z",
             "style": "{",
         },
+        "colored_verbose": {
+            "()": "colorlog.ColoredFormatter",
+            "format": "[{asctime}] [{log_color}{levelname}{reset}] [{process:d}] [{threadName}] [{module}] {message}",
+            "datefmt": "%Y-%m-%d %H:%M:%S %z",
+            "style": "{",
+            "log_colors": {
+                "DEBUG": "cyan",
+                "INFO": "green",
+                "WARNING": "yellow",
+                "ERROR": "red",
+                "CRITICAL": "bold_red",
+            },
+        },
     },
     "handlers": {
         "console": {
             "class": "logging.StreamHandler",
-            "formatter": "verbose",
+            "formatter": "colored_verbose",
         },
     },
     "root": {
