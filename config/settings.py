@@ -30,6 +30,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "config.middleware.logging.RequestLogMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -86,7 +87,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+TIME_ZONE = os.environ.get("TZ", "Asia/Kolkata")
 USE_I18N = True
 USE_TZ = True
 
@@ -101,3 +102,52 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[{asctime}] [{levelname}] [{process:d}] [{threadName}] [{module}] {message}",
+            "datefmt": "%Y-%m-%d %H:%M:%S %z",
+            "style": "{",
+        },
+        "simple": {
+            "format": "[{asctime}] [{levelname}] {message}",
+            "datefmt": "%Y-%m-%d %H:%M:%S %z",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "django.request": {
+            "handlers": [],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "app.requests": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "app": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+    },
+}

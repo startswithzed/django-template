@@ -6,9 +6,5 @@ reload = True
 workers = 2
 
 # Logging
-accesslog = "-"
 errorlog = "-"
 loglevel = "info"
-
-# Log format
-access_log_format = "%(t)s [%(p)s] %(r)s %(s)s"
