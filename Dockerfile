@@ -3,13 +3,14 @@ FROM python:3.13-slim AS base
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
-WORKDIR /app
-
-FROM base AS builder
-
+# Install curl here so it's available in all subsequent stages
 RUN apt-get update \
   && apt-get install -y --no-install-recommends curl \
   && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+FROM base AS builder
 
 # Installs uv to /root/.local/bin
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --no-modify-path
