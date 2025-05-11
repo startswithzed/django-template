@@ -1,4 +1,4 @@
-.PHONY: build up makemigrations clean build-no-cache up-no-cache
+.PHONY: build up makemigrations clean build-no-cache up-no-cache reformat reformat-staged
 
 build:
 	@COMPOSE_BAKE=true docker-compose build
@@ -17,3 +17,11 @@ makemigrations:
 
 clean:
 	@docker-compose down --volumes
+
+reformat: 
+	@uv run ruff check --fix .
+	@uv run ruff format .
+
+reformat-staged:
+	@uv run git diff --cached --name-only | xargs ruff check --fix
+	@uv run git diff --cached --name-only | xargs ruff format
