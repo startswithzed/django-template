@@ -7,6 +7,10 @@ from ninja import NinjaAPI
 from .api import router
 
 api = NinjaAPI(docs_url="/docs")
+
+# register global exception handler
+from .exceptions import global_exception_handler  # noqa
+
 api.add_router("/", router)
 
 urlpatterns = [
