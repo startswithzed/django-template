@@ -1,4 +1,4 @@
-wsgi_app = "config.wsgi:application"
+wsgi_app = "src.config.wsgi:application"
 bind = "0.0.0.0:8000"
 reload = True
 
