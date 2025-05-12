@@ -7,7 +7,7 @@ services:
       - "8000:8000"
     volumes:
       - ./src:/app/src
-      - static_volume:/app/staticfiles
+      - static_volume:/app/src/staticfiles
     env_file:
       - .env
     restart: unless-stopped
